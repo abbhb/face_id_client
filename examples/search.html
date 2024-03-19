@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>css3-scanner.html</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+
+    .blue-area {
+        background-color: #00008B;
+        width: 15%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .qr-scanner {
+        background-color: #111111;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .box {
+        width: 75vw;
+        height: 75vw;
+        max-height: 75vh;
+        max-width: 75vh;
+        position: relative;
+        overflow: hidden;
+       border: 0.1rem solid rgba(0, 51, 255, 0.2);
+
+
+    }
+
+    .line {
+        position: relative;
+        height: calc(100% - 2px);
+        width: 100%;
+        background: linear-gradient(180deg, rgba(0, 51, 255, 0.2) 43%, #00ffff 211%);
+        border-bottom: 3px solid #00ffff;
+        transform: translateY(-100%);
+        animation: radar-beam 1.4s infinite;
+        animation-timing-function: cubic-bezier(0.53, 0, 0.43, 0.99);
+        animation-delay: 0.4s;
+        z-index: 10;
+
+
+
+    }
+
+
+    .box:after,
+    .box:before,
+    .angle:after,
+    .angle:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 3vw;
+        height: 3vw;
+
+
+    }
+
+    .box:before {
+        border-left: 0.2rem solid transparent;
+        border-top: 0.2rem solid transparent;
+        border-color: #00ffff;
+
+    }
+
+    .box:after {
+        border-right: 0.2rem solid transparent;
+        border-top: 0.2rem solid transparent;
+        border-color: #00ffff;
+        right: 0;
+        top: 0;
+    }
+
+    .angle:before {
+        border-left: 0.2rem solid transparent;
+        border-bottom: 0.2rem solid transparent;
+        border-color: #00ffff;
+        left: 0;
+        bottom: 0;
+    }
+
+    .angle:after {
+        border-right: 0.2rem solid transparent;
+        border-bottom: 0.2rem solid transparent;
+        border-color: #00ffff;
+        right: 0;
+        bottom: 0;
+    }
+
+    @keyframes radar-beam {
+        0% {
+            transform: translateY(-100%);
+        }
+
+        100% {
+            transform: translateY(0);
+
+        }
+
+        /* 100% {
+            transform: translateY(-100%);
+
+        } */
+    }
+
+    /* Style for the circular avatar */
+    .avatar {
+        width: 55vw;
+        max-width: 400px;
+        height: auto;
+        border-radius: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        transform: translate(-50%, -50%);
+    }
+        .success {
+         width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        }
+        .error {
+         width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        }.init {
+         width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qr-scanner" style="display:none" id="scaning">
+        <div class="box">
+            <div class="line"> </div>
+            <div class="angle"></div>
+            <!-- Circular Avatar Image -->
+            <img class="avatar" id="needImage" src="wenhao.png" alt="Avatar Image">
+        </div>
+    </div>
+    <div class="success" id="success" style="display:none">
+        <img style="width:75vh;height:75vh;max-width:75vh; border: 5px solid green;" id="yuanImage" src="wenhao.png" alt="Avatar Image">
+    </div>
+    <div class="error" id="error" style="display:none" >
+        <img style="width:75vh;height:75vh;max-width:75vh; border: 5px solid red;" src="error.png" alt="Error Image">
+    </div>
+    <div class="init" id="init">
+        <img style="width:75vh;height:75vh;max-width:75vh; " src="init_server.gif" alt="Init Image">
+    </div>
+    <script>
+        function success(imgbase64){
+            document.getElementById('yuanImage').src = imgbase64
+            document.getElementById('scaning').style = 'display:none;';
+            document.getElementById('init').style = 'display:none;';
+            document.getElementById('error').style = 'display:none;';
+            document.getElementById('success').style = 'display:flex;';
+
+        }
+        function showframe(imgbase64){
+            document.getElementById('needImage').src = imgbase64
+            document.getElementById('success').style = 'display:none;';
+            document.getElementById('error').style = 'display:none;';
+            document.getElementById('init').style = 'display:none;';
+
+            document.getElementById('scaning').style = 'display:flex;';
+        }
+
+        function error_s(){
+            document.getElementById('success').style = 'display:none;';
+            document.getElementById('error').style = 'display:flex;';
+            document.getElementById('init').style = 'display:none;';
+
+            document.getElementById('scaning').style = 'display:none;';
+        }
+    </script>
+</body>
+
+</html>
